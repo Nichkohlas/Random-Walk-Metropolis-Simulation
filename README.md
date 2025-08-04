@@ -47,7 +47,7 @@ In this project, I:
 
 ## Files
 - Python code for this project can be accessed [here](ST2195_Part_1.ipynb), and R code [here](https://nichkohlas.github.io/Random-Walk-Metropolis-Simulation/220459392_Part_1.html).
-- Written report for this project can be accessed [here](ST2195_Final.pdf).
+- Written report for this project can be accessed [here](ST2195_Final.pdf). (View only Part 1)
 
 
 
