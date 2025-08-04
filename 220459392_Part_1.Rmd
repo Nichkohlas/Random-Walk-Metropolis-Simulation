@@ -1,0 +1,213 @@
+---
+title: "ST2195 Coursework Part 1"
+author: "Nicholas Koh"
+date: "2024-03-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Load relevant libraries
+
+```{r}
+library(ggplot2)
+```
+
+# Part a)
+
+### Specify Probability density function f(x)
+
+```{r}
+my_pdf <- function(x) {
+   0.5 * exp(-abs(x))
+}
+```
+
+### Function to run Random Walk Metropolis (RWM) algorithm
+
+```{r}
+rwm_algorithm <- function(N, x0, s) {
+  results <- data.frame(Iteration = 1:N, xi_Values = NA)
+  results$xi_Values[1] <- x0
+  
+  for(i in 2:N) {
+    random_num <- rnorm(1, mean = results$xi_Values[i-1], sd = s)
+    ratio <- my_pdf(random_num) / my_pdf(results$xi_Values[i-1])
+    u <- runif(1)
+    
+    if (u < ratio) {
+      results$xi_Values[i] <- random_num
+    } else {
+      results$xi_Values[i] <- results$xi_Values[i-1]
+    }
+  }
+  return(results)
+}
+```
+
+### Set initial parameters
+
+```{r}
+x0 <- 10
+s <- 1
+N <- 10000
+```
+
+### Store output
+*'results' variable consisting of 2 columns: 'Iteration' and 'xi_Values'*
+
+```{r}
+results <- rwm_algorithm(N, x0, s)
+```
+
+## Plotting
+
+### Generate **actual** x and y values using f(x)
+
+```{r}
+x_values_actual <- seq(-20, 20, length.out = 1000)
+y_values_actual <- my_pdf(x_values_actual)
+```
+
+### Create a data frame for **simulated values**
+
+```{r}
+simulated_df <- data.frame(
+  x = results$xi_Values,
+  y = NA,
+  Source = rep('Simulated', N)
+)
+```
+
+### Create a data frame for **original PDF values**
+
+```{r}
+original_df <- data.frame(
+  x = x_values_actual,
+  y = y_values_actual,
+  Source = rep('Actual PDF', length(x_values_actual))
+)
+```
+
+### Combine data frames
+*Bind columns 'x', 'y' and 'Source' into a single dataframe 'df'*
+
+```{r}
+df <- rbind(simulated_df, original_df)
+```
+
+### Plot **histogram** and **kernel density**
+*Visualise the estimates of f(x) along with the actual PDF*
+
+```{r}
+ggplot(df, aes(x = x, y = y, color = Source)) +
+  geom_histogram(data = df[df$Source == 'Simulated', ], aes(y = ..density..),
+                 bins = 30, fill = 'lightblue', color = 'black', alpha = 0.5) +
+  geom_line(data = df[df$Source == 'Actual PDF', ], aes(y = y, color = 'Actual PDF'), size = 1.5) +
+  geom_density(data = df[df$Source == 'Simulated', ], aes(y = ..density.., color = 'Simulated'), size = 1, na.rm = TRUE) +
+  labs(title = 'Histogram and Kernel Density Plot with Actual PDF Overlay', x = 'Sampled Values') +
+  scale_x_continuous(limits = c(-10,10)) +
+  scale_color_manual(values = c('Simulated' = 'red', 'Actual PDF' = 'blue'),
+                     labels = c('Simulated' = 'Simulated Density', 'Actual PDF' = 'Actual PDF')) +
+  theme_bw()
+```
+
+### Calculate Monte Carlo estimate of the **mean** and **standard deviation**
+
+```{r}
+monte_carlo_mean <- mean(results$xi_Values)
+monte_carlo_sd <- sd(results$xi_Values)
+```
+
+### Print Monte Carlo estimates
+
+```{r}
+cat("Monte Carlo Estimate of Mean:", monte_carlo_mean, "\n")
+cat("Monte Carlo Estimate of Standard Deviation:", monte_carlo_sd, "\n")
+```
+
+# Part b)
+
+*In this part, we will compute the R-hat values for different values of the parameter `s` and visualize them.*
+
+### Specify Parameters
+
+```{r}
+N <- 2000
+s <- 0.001
+J <- 4  # Number of chains
+s_values <- seq(0.001, 1, length.out = 100)
+```
+
+### Function to compute R-hat value
+
+```{r}
+calc_r_hat <- function(N, s, J) {
+  
+  # Generate J sequences with different random initial values
+  chain_results <- lapply(1:J, function(j) {
+    x0 <- runif(J, -10, 10)  # Generate a random initial value between -10 and 10 for each chain
+    results <- rwm_algorithm(N, x0, s)
+  })
+  
+  # Function to compute sample mean (Mj) for a given chain j
+  compute_Mj <- function(chain) {
+    mean_chain <- mean(chain$xi_Values)
+    return(mean_chain)
+  }
+  
+  # Calculate Mj for each chain
+  Mj <- sapply(chain_results, compute_Mj)
+  
+
+  
+  # Calculate Vj for each chain using the correct sample mean
+  Vj <- sapply(chain_results, function(chain) var(chain))
+  
+  # Calculate overall within-sample variance (W)
+  W <- mean(Vj)
+  
+  # Calculate overall sample mean (M)
+  M <- mean(Mj)
+  
+  # Calculate between-sample variance (B)
+  B <- mean((Mj - M)^2)
+  
+  # Calculate R-hat value
+  R_hat <- sqrt((B + W) / W)
+  
+  
+  return(R_hat)
+}
+```
+
+### Retrieve final R-hat value
+
+```{r}
+result <- suppressWarnings(calc_r_hat(N = 2000, s = 0.001, J = 4))
+print(result)
+```
+
+### Retrieve R-hat values for each 's' value
+
+```{r}
+results <- suppressWarnings(sapply(s_values, function(s_value) {
+  calc_r_hat(N, s_value, J)
+}))
+```
+
+### Plot calculated values
+*Plot values of R-hat over a grid of 's' values in the specified interval of 0.001 and 1*
+
+```{r}
+plot_df <- data.frame(s = s_values, R_hat = results)
+
+ggplot(plot_df, aes(x = s, y = R_hat)) +
+  geom_line() +
+  labs(title = "R-hat vs. s",
+       x = "s Value",
+       y = "R-hat Value") +
+  theme_bw()
+  ```
