@@ -34,6 +34,15 @@ In this project, I:
   - **Values greater than 1.1 suggests non-convergence**, requiring further iterations or parameter adjustments.
   - In this project, the R-hat value approached 1 for well-tuned step sizes, confirming good chain mixing and convergence.
  
+![Grid Plot of Samples](GridPlot.png)  
+*Grid Plot of R-hat values over varying tuning parameter (s) (Python & R implementation)*
+
+## Skills Used
+- **Programming Languages:** Python, R
+- **Statistical Techniques:** Markov Chain Monte Carlo (MCMC), Random Walk Metropolis (RWM) algorithm, Convergence Diagnostics (R-hat)
+- **Data Visualization:** ggplot (R), matplotlib (Python)
+- **Reproducible Reporting:** R Markdown, Jupyter Notebook
+
 
 
 
