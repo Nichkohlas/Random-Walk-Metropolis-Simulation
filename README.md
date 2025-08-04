@@ -1,15 +1,22 @@
 # Random Walk Metropolis Simulation
 
-As part of my *Programming for Data Science* coursework, this project implements the **Random Walk Metropolis (RWM) algorithm** in Python and R to generate random samples from a target probability density function (PDF).
+As part of my *Programming for Data Science* coursework, this project implements the **Random Walk Metropolis (RWM) algorithm** in both Python and R to generate random samples from a target probability density function (PDF).
 
 ---
 
 ## Project Overview
 The **Random Walk Metropolis algorithm** is a Markov Chain Monte Carlo (MCMC) method used for sampling from complex probability distributions.
+
 In this project, I:
 - Implemented the algorithm **from scratch** in both Python and R.
 - Simulated **10,000 iterations** using a defined step size.
 - Visualized the sampled values to confirm they reflect the target distribution.
+
+And the target PDF is a **Laplace Distribution** (double exponential) as such:
+
+![Target PDF](GridPlot.png)  
+
+*This distribution was chosen because it is **non-normal** with **heavier tails**, making it a good test case for validating the convergence and efficiency of the Random Walk Metropolis algorithm.*
 
 ---
 
@@ -47,7 +54,7 @@ In this project, I:
 
 ## Files
 - Python code for this project can be accessed [here](ST2195_Part_1.ipynb), and R code [here](https://nichkohlas.github.io/Random-Walk-Metropolis-Simulation/220459392_Part_1.html).
-- Written report for this project can be accessed [here](ST2195_Final.pdf). (View only Part 1)
+- Written report for this project can be accessed [here](ST2195_Final.pdf). **(View only Part 1)**
 
 
 
