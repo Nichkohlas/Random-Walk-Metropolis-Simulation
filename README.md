@@ -21,6 +21,6 @@ In this project, I:
 ---
 
 ## Files
-- Python code of this project can be found [here](ST2195_Part_1.ipynb), and R code [here]([220459392_Part_1.Rmd](https://nichkohlas.github.io/Random-Walk-Metropolis-Simulation/)).
+- Python code of this project can be found [here](ST2195_Part_1.ipynb), and R code [here]([220459392_Part_1.Rmd](https://nichkohlas.github.io/Random-Walk-Metropolis-Simulation/).
 
 
