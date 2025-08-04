@@ -23,6 +23,8 @@ In this project, I:
 ## Files
 - Python code of this project can be found [here](ST2195_Part_1.ipynb), and R code [here](https://nichkohlas.github.io/Random-Walk-Metropolis-Simulation/220459392_Part_1.html).
 
+---
+
 ## Results
 - **Sampling Accuracy:** The histogram and kernel density plots of the simulated samples closely match the target distribution, confirming proper convergence.
 - **Monte Carlo Estimates:**
@@ -35,7 +37,10 @@ In this project, I:
   - In this project, the R-hat value approached 1 for well-tuned step sizes, confirming good chain mixing and convergence.
  
 ![Grid Plot of Samples](GridPlot.png)  
+
 *Grid Plot of R-hat values over varying tuning parameter (s) (Python & R implementation)*
+
+---
 
 ## Skills Used
 - **Programming Languages:** Python, R
