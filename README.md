@@ -20,11 +20,6 @@ In this project, I:
 
 ---
 
-## Files
-- Python code of this project can be found [here](ST2195_Part_1.ipynb), and R code [here](https://nichkohlas.github.io/Random-Walk-Metropolis-Simulation/220459392_Part_1.html).
-
----
-
 ## Results
 - **Sampling Accuracy:** The histogram and kernel density plots of the simulated samples closely match the target distribution, confirming proper convergence.
 - **Monte Carlo Estimates:**
@@ -47,6 +42,12 @@ In this project, I:
 - **Statistical Techniques:** Markov Chain Monte Carlo (MCMC), Random Walk Metropolis (RWM) algorithm, Convergence Diagnostics (R-hat)
 - **Data Visualization:** ggplot (R), matplotlib (Python)
 - **Reproducible Reporting:** R Markdown, Jupyter Notebook
+
+---
+
+## Files
+- Python code for this project can be accessed [here](ST2195_Part_1.ipynb), and R code [here](https://nichkohlas.github.io/Random-Walk-Metropolis-Simulation/220459392_Part_1.html).
+- Written report for this project can be accessed [here]().
 
 
 
