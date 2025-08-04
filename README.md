@@ -14,7 +14,7 @@ In this project, I:
 
 And the target PDF is a **Laplace Distribution** (double exponential) as such:
 
-![Target PDF](GridPlot.png)  
+![Target PDF](PDF.png)  
 
 *This distribution was chosen because it is **non-normal** with **heavier tails**, making it a good test case for validating the convergence and efficiency of the Random Walk Metropolis algorithm.*
 
@@ -28,15 +28,15 @@ And the target PDF is a **Laplace Distribution** (double exponential) as such:
 ---
 
 ## Results
-- **Sampling Accuracy:** The histogram and kernel density plots of the simulated samples closely match the target distribution, confirming proper convergence.
+- **Sampling Accuracy:** The histogram and kernel density plots of the simulated samples **closely match the target distribution**, confirming **proper convergence**.
 - **Monte Carlo Estimates:**
-  - Mean of sampled vallues: **≈ 0.05**
+  - Mean of sampled values: **≈ 0.05**
   - Standard Deviation of sample values: **≈ 1.63**
 - **Convergence Diagnostic (R-hat):**
   - The R-hat value provides a way to quantify whether multiple chains of a model are converging to the same distribution.
-  - In ideal circumstances, the **R-hat value should approach 1**, indicating that all chains are sampling from the same underlying distribution.
+  - In ideal circumstances, the **R-hat value should approach 1**, indicating that all chains are sampling from the **same underlying distribution**.
   - **Values greater than 1.1 suggests non-convergence**, requiring further iterations or parameter adjustments.
-  - In this project, the R-hat value approached 1 for well-tuned step sizes, confirming good chain mixing and convergence.
+  - In this project, the R-hat value **approached 1** for well-tuned step sizes, confirming **good chain mixing and convergence**.
  
 ![Grid Plot of Samples](GridPlot.png)  
 
